@@ -35,6 +35,7 @@ Route::prefix('report')->group(function (){
         Route::get('/uptime/backup', [App\Http\Controllers\UptimeController::class, 'backup_uptime'])->name('get.uptime.backup');
         Route::get('/history', [App\Http\Controllers\UptimeController::class, 'uptime_history'])->name('get.uptime.history');
         Route::get('/history/{date}', [App\Http\Controllers\UptimeController::class, 'uptime_history_date'])->name('get.uptime.history.date');
+        Route::delete('/history/{date}', [App\Http\Controllers\UptimeController::class, 'delete_uptime_history_date'])->name('delete.uptime.history.date');
         Route::get('/history/{date}/export/excel', [App\Http\Controllers\UptimeController::class, 'uptime_history_date_excel'])->name('get.uptime.history.date.excel');
     });
 

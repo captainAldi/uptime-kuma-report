@@ -60,7 +60,16 @@
                 <td class="text-nowrap">{{ $loop->iteration }}</td>
                 <td class="text-nowrap">{{ $key }}</td>
                 <td>
-                  <a href="{{ route('get.uptime.history.date', $key) }}">Lihat</a>
+                  <a class="btn btn-primary" href="{{ route('get.uptime.history.date', $key) }}">Lihat</a>
+
+                  <form hidden action="{{ route('delete.uptime.history.date', $key) }}" method="post" id="form-hapus-ke-{{ $key }}">
+                    @csrf
+                    @method('DELETE')
+                  </form>
+
+                  <button class="btn btn-danger" type="submit" form="form-hapus-ke-{{ $key }}">
+                    Hapus
+                  </button>
                 </td>
               </tr>
             @endforeach

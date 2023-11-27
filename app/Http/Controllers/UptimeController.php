@@ -300,5 +300,17 @@ class UptimeController extends Controller
         return view('reports.chart-detail', compact('data_chart'));
     }
 
+    public function delete_uptime_history_date(Request $request)
+    {
+        $data_to_delete = UptimeHistory::where('untuk_tanggal', $request->date);
+
+        // Delete Data
+        $data_to_delete->delete();
+
+        return back()->with('pesan', 'Berhasil Hapus Data !');
+
+
+    }
+
     
 }

@@ -32,7 +32,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $value->name }}</td>
                         <td>
-                          <a href="{{ route('get.chart.detail', $value->name) }}">Lihat</a>
+                          <a class="btn btn-primary" href="{{ route('get.chart.detail', $value->name) }}">Lihat</a>
                         </td>
                     </tr>
                 @endforeach
