@@ -1,0 +1,58 @@
+version: "3.7"
+services:
+  uptime-kuma-report-db:
+    image: mariadb:10.6
+    container_name: uptime-kuma-report-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: " "
+      MYSQL_DATABASE: " "
+      MYSQL_USER: " "
+      MYSQL_PASSWORD: " "
+    networks:
+      - uptime-kuma-report
+    volumes:
+    - 'uptime-kuma-report-db-data:/var/lib/mysql'
+
+  uptime-kuma-report-adminer:
+    image: adminer
+    container_name: uptime-kuma-report-adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - uptime-kuma-report
+  
+  uptime-kuma-report-be:
+    image: harbor.bsa.id/infra/uptime-kuma-report:v0.0.3
+    container_name: uptime-kuma-report-be
+    restart: unless-stopped
+    environment:
+      APP_KEY: " "
+      DB_HOST: "uptime-kuma-report-db"
+      DB_DATABASE: " "
+      DB_USERNAME: " "
+      DB_PASSWORD: " "
+      DB_TIMEZONE: "+07:00"
+      DB_CONNECTION_2: "sqlite"
+      DB_DATABASE_2: "/var/www/html/storage/app/kuma.db"
+      MAIL_HOST: "smtp.mailtrap.io"
+      MAIL_PORT: "2525"
+      MAIL_USERNAME: " "
+      MAIL_PASSWORD: " "
+      MAIL_ENCRYPTION: "tls"
+    ports:
+      - 5000:80
+    networks:
+      - uptime-kuma-report
+    volumes:
+      - /Users/renaldi/Downloads/uptime-bsa/kuma.db:/var/www/html/storage/app/kuma.db
+    depends_on:
+      - uptime-kuma-report-db
+
+networks:
+  uptime-kuma-report:
+    driver: bridge
+
+volumes:
+  uptime-kuma-report-db-data:
